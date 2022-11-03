@@ -278,6 +278,7 @@ namespace Lexer
             {
                 return new Lexeme(_pos, LexemeType.Id, _buffer, _buffer);
             }
+            
         }
 
         private Lexeme ScanString()

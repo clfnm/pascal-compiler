@@ -1,0 +1,14 @@
+1	1	Separator	LeftParenthesis	(
+1	2	Integer	2	2
+1	4	Operation	Addition	+
+1	6	Integer	3	3
+1	7	Separator	RightParenthesis	)
+1	9	Operation	MultiplicationWithAssigment	*
+1	11	Integer	3	3
+2	1	Double	0,031	3.10e-2
+3	1	Double	3000000000000	3e12
+4	1	Double	3000000000000	3.e12
+5	1	Integer	10	$A
+6	1	Integer	2748	$abc
+7	1	Double	2748	$aBc.
+7	6	Eof	EOF	

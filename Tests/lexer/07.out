@@ -1,0 +1,14 @@
+1	1	Id	i	i
+1	3	Operation	Assigment	:=
+1	6	Integer	10	10
+1	27	Id	i	i
+1	29	Separator	Colon	:
+1	31	Operation	Equal	=
+1	33	Integer	10	10
+1	44	Id	I	I
+1	45	Operation	Assigment	:=
+1	47	Integer	10	10
+3	1	Id	x	x
+3	3	Operation	AdditionWithAssigment	+=
+3	6	Integer	10	10
+3	8	Eof	EOF	

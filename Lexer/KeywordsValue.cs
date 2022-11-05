@@ -1,6 +1,6 @@
 ﻿namespace Lexer
 {
-    public enum KeywordsValue
+    public enum KeywordsValue /*ключевые слова*/
     {
         AND,
         ARRAY,

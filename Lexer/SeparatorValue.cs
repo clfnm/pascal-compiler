@@ -1,6 +1,6 @@
 ﻿namespace Lexer
 {
-    public enum SeparatorValue
+    public enum SeparatorValue /*разделители*/
     {
         LeftParenthesis, // (
         RightParenthesis, // )

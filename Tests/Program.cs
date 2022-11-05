@@ -8,11 +8,13 @@ namespace Tests
 {
     internal class Program
     {
+        //Путь к файлу
         private static string GetFilePathInProject(string file)
         {
             return AppDomain.CurrentDomain.BaseDirectory + "../../" + file;
         }
 
+        //Создание файла .out
         private static string GetOutputFile(string file)
         {
             return file.Substring(0, file.Length - 3) + ".out";

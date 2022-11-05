@@ -1,4 +1,6 @@
-﻿using System;
+﻿/*Сгенерирован Rider-ом*/
+
+using System;
 
 namespace Lexer
 {

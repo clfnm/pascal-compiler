@@ -26,11 +26,11 @@ namespace Lexer
             _buffer += c;
             if (c == '\n')
             {
-                _currentPosition.incLine();
+                _currentPosition.IncLine();
             }
             else if (c != '\r') // на видоус системах после \n следует \r
             {
-                _currentPosition.incColumn();
+                _currentPosition.IncColumn();
             }
 
             return c;

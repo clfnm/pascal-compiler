@@ -1,4 +1,6 @@
-﻿using System;
+﻿/*класс счетчик, чтобы понимать, на какой строке и колонке находится лексема*/
+
+//using System;
 
 namespace Lexer
 {
@@ -14,13 +16,13 @@ namespace Lexer
             get => _currentColumn;
         }
 
-        public void incLine()
+        public void IncLine()
         {
             _currentLine += 1;
             _currentColumn = 0;
         }
         
-        public void incColumn()
+        public void IncColumn()
         {
             _currentColumn += 1;
         }

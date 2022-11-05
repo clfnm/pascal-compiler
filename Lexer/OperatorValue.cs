@@ -1,6 +1,6 @@
 ﻿namespace Lexer
 {
-    public enum OperatorValue
+    public enum OperatorValue /*знаки операций*/
     {
         Assigment, // :=
         Equal, // =

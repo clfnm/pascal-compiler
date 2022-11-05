@@ -106,6 +106,6 @@
         SPECIALIZE,
         STDCALL,
         VIRTUAL,
-        WRITE,
+        WRITE
     }
 }

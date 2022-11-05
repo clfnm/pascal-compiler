@@ -11,12 +11,11 @@ namespace PascalCompiler
             if (args.Length == 0)
             {
                 Console.WriteLine("Нужно передать файл в качестве параметра");
-                System.Environment.Exit(1);
+                Environment.Exit(1);
             }
 
             // путь к файлу
             var file = args[0];
-
 
             if (!File.Exists(file))
             {

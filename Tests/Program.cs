@@ -30,7 +30,7 @@ namespace Tests
                 files.Add(file);
             }
 
-            // подчитываем общее количество тестов и тестов, которые лексер выдал неправильный ответ
+            // подчитываем общее количество тестов и тестов, в которые лексер выдал неправильный ответ
             int total = 0, failed = 0;
 
             foreach (var inputFile in files)
@@ -120,7 +120,7 @@ namespace Tests
                 }
             }
             
-            // выводится статистика тестов
+            // выводится статистика тестов (все, прошедшие, провалившиеся)
             Console.WriteLine("TOTAL: {0}, SUCCESS: {1}, FAILED: {2}", total, total - failed, failed);
         }
     }

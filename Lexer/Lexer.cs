@@ -12,7 +12,7 @@ namespace Lexer
         private readonly StreamReader _fileStream;
         private string _buffer = "";
 
-        public Lexer(StreamReader fileStream)
+        public Lexer(StreamReader fileStream) //поток файла
         {
             _fileStream = fileStream;
         }

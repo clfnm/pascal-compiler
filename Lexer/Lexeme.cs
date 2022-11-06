@@ -4,21 +4,20 @@ namespace Lexer
 {
     public class Lexeme
     {
-        private Position pos;
-
+        private Position pos; //позиция
         private Position Pos
         {
             get => pos;
         }
 
-        private LexemeType type;
+        private LexemeType type; //тип
 
         public LexemeType Type
         {
             get => type;
         }
 
-        private object value;
+        private object value; //значение
 
         /**
          * object - тип, который может хранить любые другие типы данных: строка, число, enum и т.д.
@@ -28,7 +27,7 @@ namespace Lexer
             get => value;
         }
 
-        private string raw_value;
+        private string raw_value; //необработанное значение
 
         public string RawValue
         {

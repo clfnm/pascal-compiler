@@ -12,7 +12,7 @@ namespace Lexer
         private readonly StreamReader _fileStream;
         private string _buffer = "";
 
-        public Lexer(StreamReader fileStream) //поток файла
+        public Lexer(StreamReader fileStream)
         {
             _fileStream = fileStream;
         }
@@ -111,6 +111,7 @@ namespace Lexer
                 // текущий символ равняется ':'
                 case ':':
                     // если следующий символ равняется '=', то это оператор присваивания
+                    // в других case по аналогии
                     if (GetPeek() != '=')
                         return new Lexeme(_pos, LexemeType.Separator, SeparatorValue.Colon, _buffer);
                     GetChar();

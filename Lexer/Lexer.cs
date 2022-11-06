@@ -322,7 +322,7 @@ namespace Lexer
                     return new Lexeme(_pos, LexemeType.String, _buffer, _buffer);
                 }
 
-                c = (char)GetPeek();
+                c = (char)GetChar();
             }
         }
 

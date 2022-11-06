@@ -1,0 +1,27 @@
+1	1	Operation	MultiplicationWithAssigment	*
+1	2	Id	A	A
+2	1	Id	A	A
+2	2	Operation	MultiplicationWithAssigment	*
+3	1	Operation	MultiplicationWithAssigment	*
+3	2	Operation	MultiplicationWithAssigment	*
+3	3	Operation	MultiplicationWithAssigment	*
+3	4	Operation	MultiplicationWithAssigment	*
+3	5	Operation	MultiplicationWithAssigment	*
+4	1	Separator	Dot	.
+4	2	Id	A	A
+4	3	Separator	Range	..
+5	1	Separator	Range	..
+5	3	Integer	4	4
+6	1	Separator	Dot	.
+6	2	Integer	4	4
+7	1	Double	5	5.
+8	1	Double	5	5.
+8	3	Separator	Dot	.
+9	1	Id	A	A
+9	2	Separator	Dot	.
+9	3	Id	A	A
+10	1	Id	a	a
+10	2	Operation	Addition	+
+10	3	Id	b	b
+11	1	Invalid		
+Invalid integer

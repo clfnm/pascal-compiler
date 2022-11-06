@@ -2,6 +2,162 @@
 
 namespace Lexer
 {
+    public enum KeywordsValue /*ключевые слова*/
+    {
+        AND,
+        ARRAY,
+        ASM,
+        BEGIN,
+        BREAK,
+        CASE,
+        CONST,
+        CONSTRUCTOR,
+        CONTINUE,
+        DESTRUCTOR,
+        DIV,
+        DO,
+        DOWNTO,
+        ELSE,
+        END,
+        FALSE,
+        FILE,
+        FOR,
+        FUNCTION,
+        GOTO,
+        IF,
+        IMPLEMENTATION,
+        IN,
+        INLINE,
+        INTERFACE,
+        LABEL,
+        MOD,
+        NIL,
+        NOT,
+        OBJECT,
+        OF,
+        OPERATOR,
+        OR,
+        PACKED,
+        PROCEDURE,
+        PROGRAM,
+        RECORD,
+        REPEAT,
+        SET,
+        SHL,
+        SHR,
+        STRING,
+        THEN,
+        TO,
+        TRUE,
+        TYPE,
+        UNIT,
+        UNTIL,
+        USES,
+        VAR,
+        WHILE,
+        WITH,
+        XOR,
+        AS,
+        CLASS,
+        CONSTREF,
+        DISPOSE,
+        EXCEPT,
+        EXIT,
+        EXPORTS,
+        FINALIZATION,
+        FINALLY,
+        INHERITED,
+        INITIALIZATION,
+        IS,
+        LIBRARY,
+        NEW,
+        ON,
+        OUT,
+        PROPERTY,
+        RAISE,
+        SELF,
+        THREADVAR,
+        TRY,
+        ABSOLUTE,
+        ABSTRACT,
+        ALIAS,
+        ASSEMBLER,
+        CDECL,
+        CPPDECL,
+        DEFAULT,
+        EXPORT,
+        EXTERNAL,
+        FORWARD,
+        GENERIC,
+        INDEX,
+        LOCAL,
+        NAME,
+        NOSTACKFRAME,
+        OLDFPCCALL,
+        OVERRIDE,
+        PASCAL,
+        PRIVATE,
+        PROTECTED,
+        PUBLIC,
+        PUBLISHED,
+        READ,
+        REGISTER,
+        REINTRODUCE,
+        SAFECALL,
+        SOFTFLOAT,
+        SPECIALIZE,
+        STDCALL,
+        VIRTUAL,
+        WRITE
+    }
+    
+    public enum LexemeType
+    {
+        Invalid, /*лексема, которую мы не смогли определить
+                    комментарии нужно пропускать, не нужно их выделять как отдельные лексемы*/
+        Eof, /*конец файла*/
+        Id, /*идентификаторы*/
+        Keyword, /*ключевые слова*/
+        Operation, /*знаки операций*/
+        Separator, /*разделитель*/
+        Integer, /*целое*/
+        Double, /*вещественный*/
+        String, /*строка*/
+    }
+    
+    public enum OperatorValue /*знаки операций*/
+    {
+        Assigment, // :=
+        Equal, // =
+        NotEqual, // <>
+        LessThan, // <
+        GreaterThan, // >
+        LessThanOrEqual, // >=
+        Addition, // +
+        AdditionWithAssigment, // +=
+        Subtraction, // -
+        SubtractionWithAssigment, // +=
+        Multiplication, // *
+        MultiplicationWithAssigment, // +=
+        Division, // /
+        DivisionWithAssigment, // +=
+        BitwiseShiftToTheLeft, // <<
+        BitwiseShiftToTheRight, // >>
+    }
+    
+    public enum SeparatorValue /*разделители*/
+    {
+        LeftParenthesis, // (
+        RightParenthesis, // )
+        LeftSquareBracket, // [
+        RightSquareBracket, // ]
+        Comma, // ,
+        Dot, // .
+        Range, // .. 
+        Semicolon, // ;
+        Colon // :
+    }
+    
     public class Lexeme
     {
         private Position pos;

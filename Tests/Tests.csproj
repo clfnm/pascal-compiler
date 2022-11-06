@@ -43,20 +43,27 @@
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-        <Content Include="lexer\01.in" />
-        <Content Include="lexer\02.in" />
-        <Content Include="lexer\03.in" />
-        <Content Include="lexer\04.in" />
-        <Content Include="lexer\05.in" />
-        <Content Include="lexer\06.in" />
-        <Content Include="lexer\07.in" />
-        <Content Include="lexer\08.in" />
+      <Content Include="lexer\01.in" />
+      <Content Include="lexer\02.in" />
+      <Content Include="lexer\03.in" />
+      <Content Include="lexer\04.in" />
+      <Content Include="lexer\05.in" />
+      <Content Include="lexer\06.in" />
+      <Content Include="lexer\07.in" />
+      <Content Include="lexer\08.in" />
+      <Content Include="lexer\09.in" />
+      <Content Include="lexer\10.in" />
+      <Content Include="lexer\11.in" />
+      <Content Include="lexer\12.in" />
+      <Content Include="lexer\13.in" />
+      <Content Include="lexer\14.in" />
+      <Content Include="lexer\15.in" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Lexer\Lexer.csproj">
-            <Project>{d2e09790-6360-4ae4-8c60-97e732656fa1}</Project>
-            <Name>Lexer</Name>
-        </ProjectReference>
+      <ProjectReference Include="..\Lexer\Lexer.csproj">
+        <Project>{d2e09790-6360-4ae4-8c60-97e732656fa1}</Project>
+        <Name>Lexer</Name>
+      </ProjectReference>
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

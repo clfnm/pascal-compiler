@@ -316,6 +316,7 @@ namespace Lexer
                     throw new Exception("Unexpected character");
                 }
                 
+                
                 // если встретили еще одну кавычну, значит строковый литерал закончился
                 if (c == '\'')
                 {

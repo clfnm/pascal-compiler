@@ -1,0 +1,16 @@
+﻿program Test; 
+const C=10; 
+type TCounter=0..C; 
+var i:TCounter; 
+CurEl:integer; 
+summa:integer; 
+//begin writeln (‘Hello World!!!’); i:=0; summa:=0; repeat read(CurEl); summa:=summa+CurEl; i:=i+1; until i=C; write(summa); end.
+begin writeln (‘Hello World!!!’); 
+i:=0; 
+summa:=0; 
+repeat read(CurEl); 
+summa:=summa+CurEl; 
+i:=i+1; 
+until i=C; 
+write(summa); 
+end.

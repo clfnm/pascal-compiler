@@ -52,6 +52,8 @@
       <Content Include="lexer\07.in" />
       <Content Include="lexer\08.in" />
       <Content Include="lexer\09.in" />
+      <Content Include="lexer\10.in" />
+      <Content Include="lexer\11.in" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Lexer\Lexer.csproj">

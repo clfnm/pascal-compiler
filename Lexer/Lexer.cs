@@ -17,101 +17,90 @@ namespace Lexer
             _fileStream = fileStream;
         }
 
-        /**
-         * Получить следующий символ из потока. Сохраняет символ в буфер. Изменяет поле pos.
-         */
+
         int GetChar()
         {
-            // считать символ из потока
+
             var c = (char)_fileStream.Read();
             _buffer += c;
-            // \n - конец строки
+
             if (c == '\n')
             {
-                // увеличиваем позицию по строке и обнуляем по колонкам, если встретили знак окончания строки
+
                 _currentPosition.IncLine();
             }
-            else if (c != '\r') // на видоус системах после \n следует \r
+            else if (c != '\r')
             {
-                // увеличиваем колонку, если встрели не \n или \r
+
                 _currentPosition.IncColumn();
             }
 
             return c;
         }
 
-        /**
-         * Получить следующий элемент из потока, без перехода на него
-         */
+
         int GetPeek()
         {
             return _fileStream.Peek();
         }
 
-        /**
-         * Получить следующую лексему из потока. Вызывать функцию, пока тип лексемы не Eof
-         */
+
         public Lexeme GetNext()
         {
-            // взять один символ из потока
+
             var c = GetChar();
 
-            /* встретили символ конца потока
-            if (_fileStream.EndOfStream)
-            {
-                return new Lexeme(_currentPosition, LexemeType.Eof, "", "");
-            }*/
 
-            // пропускаем пробелы и комментарии
+
+
             do
             {
-                // если это комменатрий типа (* *)
+
                 if ((char)c == '(' && GetPeek() == '*')
                 {
-                    GetChar(); // взять символ *
-                    SkipCommentWithRoundBracket(); // вызов функция для пропуска комментариев
-                    c = GetChar(); // взять следующий символ, после комментария
+                    GetChar();
+                    SkipCommentWithRoundBracket();
+                    c = GetChar();
                 }
-                // если это комменатрий типа { }
+
                 else if ((char)c == '{')
                 {
                     SkipCommentWithBrace();
-                    c = GetChar(); // взять следующий символ, после комментария
+                    c = GetChar();
                 }
-                // если это комменатрий типа //
+
                 else if ((char)c == '/' && GetPeek() == '/')
                 {
-                    GetChar(); //  взять символ /
+                    GetChar();
                     SkipCommentInLine();
-                    c = GetChar(); // взять следующий символ, после комментария
+                    c = GetChar();
                 }
-                // если c = табуляции, переносу строки или переносу строки из windows
+
                 else if ((char)c == ' ' || c == '\t' || c == '\n' || c == '\r')
                 {
                     c = GetChar();
                 }
                 else
                 {
-                    // означает, что с символа c начинается новая лексема
+
                     break;
                 }
             } while (true);
 
-            // Сохраняем позицию начала новой лексемы
+
             _pos.Set(_currentPosition.CurrentLine, _currentPosition.CurrentColumn);
 
-            // обнуляем буффер перед считываем новой лексемы
+
             _buffer = "";
-            // добавляется один символ, который мы считала перед break из прошлого цикла
+
             _buffer += (char)c;
 
-            // проверяем с на соотвествие опеределенной лексеме
+
             switch (c)
             {
-                // текущий символ равняется ':'
+
                 case ':':
-                    // если следующий символ равняется '=', то это оператор присваивания
-                    // в других case по аналогии
+
                     if (GetPeek() != '=')
                         return new Lexeme(_pos, LexemeType.Separator, SeparatorValue.Colon, _buffer);
                     GetChar();
@@ -208,7 +197,7 @@ namespace Lexer
                     }
 
                     // индентификатор или ключевое слово
-                    // Если начало соотвествует индентификатору
+
                     if (IsId((char)c))
                     {
                         return ScanIdOrKeyword();
@@ -229,26 +218,26 @@ namespace Lexer
 
         private void SkipCommentWithRoundBracket()
         {
-            // пока не встретили *) продолжаем чтение
+
             while ((char)GetChar() != '*' && (char)GetPeek() != ')')
             {
-                // если наткнулись на конец файла (комментарий не закрыт)
+
                 if (_fileStream.EndOfStream)
                 {
                     throw new Exception("Comment not closed");
                 }
             }
 
-            // переходим на следующий символ
+
             GetChar(); // get )
         }
 
         private void SkipCommentWithBrace()
         {
-            // по аналогии с SkipCommentWithRoundBracket
+
             while ((char)GetChar() != '}')
             {
-                // если наткнулись на конец файла (комментарий не закрыт)
+
                 if (_fileStream.EndOfStream)
                 {
                     throw new Exception("Comment not closed");
@@ -259,7 +248,7 @@ namespace Lexer
         private void SkipCommentInLine()
         {
             var c = (char)GetChar();
-            // пока не встретим конец строки или Eof
+
             while (true)
             {
                 c = (char)GetChar();
@@ -272,32 +261,30 @@ namespace Lexer
 
         private bool IsId(char c)
         {
-            // проверяем символ соответствует ли он началу индентификатора:
-            // латиница, нижнее подчеркивание
+
             return 'a' <= char.ToLower(c) && char.ToLower(c) <= 'z' || c == '_';
         }
 
 
         private Lexeme ScanIdOrKeyword()
         {
-            // считываем пока похоже на индентификатор
+
             while (IsId((char)GetPeek()) || Digit((char)GetPeek(), 10))
             {
                 GetChar();
             }
 
-            // проверяем если ли в enum такое слово
+
             try
             {
-                // _buffer.ToUpper() - сделать все буквы заглавными
-                // Enum.Parse(Type, String) - преобразует строковое значение в значение из enum
+
                 var value = (KeywordsValue)Enum.Parse(
                     typeof(KeywordsValue),
                     _buffer.ToUpper()
-                    ); // выкидывает ошибки, если нет такого ключевого слова
+                    );
                 return new Lexeme(_pos, LexemeType.Keyword, value, _buffer);
             }
-            catch (Exception ex) //  ловим ошибку и возвращаем значение индентификатора
+            catch (Exception ex)
             {
                 return new Lexeme(_pos, LexemeType.Id, _buffer, _buffer);
             }
@@ -307,17 +294,17 @@ namespace Lexer
         private Lexeme ScanString()
         {
             var c = (char)GetPeek();
-            // считываем пока, не встретили '
+
             while (true)
             {
-                // если строка не закрыта и мы встретили конец файла, значит ошибка
+
                 if (c == '\n' || c == '\r' || _fileStream.EndOfStream)
                 {
                     throw new Exception("Unexpected character");
                 }
                 
                 
-                // если встретили еще одну кавычну, значит строковый литерал закончился
+
                 if (c == '\'')
                 {
                     return new Lexeme(_pos, LexemeType.String, _buffer, _buffer);
@@ -327,9 +314,7 @@ namespace Lexer
             }
         }
 
-        /**
-         * проверяем является ли символ числом в конкретной СС
-         */
+
         private static bool Digit(char c, int baseNumber)
         {
             return (baseNumber == 16 && ('a' <= char.ToLower(c) && char.ToLower(c) <= 'f')) ||
@@ -342,7 +327,7 @@ namespace Lexer
         {
             var baseNumber = 10;
             
-            // выбираем систему счисления относительно начального символа
+
             switch (firstChar)
             {
                 case '$':
@@ -356,12 +341,12 @@ namespace Lexer
                     break;
             }
 
-            // сохряняем отдельно части числа
+
             var integerPart = new StringBuilder();
             var afterDot = new StringBuilder();
             var afterE = new StringBuilder();
 
-            // сохраняем целую часть числа
+
             if (Digit(firstChar, baseNumber))
             {
                 integerPart.Append(firstChar);
@@ -374,10 +359,7 @@ namespace Lexer
                 integerPart.Append((char)GetChar());
             }
             
-            // если в не 10 системе счисления нет цифр, то выкидываем 
-            // ошибку
-            //
-            // Длина равная 0 говорит о том, что в буфере только префикс:'$', '&', '%'
+
             if (integerPart.Length == 0 && baseNumber != 10)
             {
                 throw new Exception("Invalid integer");
@@ -385,7 +367,7 @@ namespace Lexer
 
             if (GetPeek() == '.' && baseNumber == 10)
             {
-                // записываем символы после точки
+
                 afterDot.Append((char)GetChar());
                 type = LexemeType.Double;
                 while ('0' <= GetPeek() && GetPeek() <= '9')
@@ -394,18 +376,18 @@ namespace Lexer
                 }
             }
 
-            // Например, $10. => валидно
+
             if (GetPeek() == '.' && baseNumber != 10)
             {
                 GetChar();
                 type = LexemeType.Double;
             }
 
-            // e может быть только после числе в 10 СС
+
             var digitsAfterE = -1;
             if ((GetPeek() == 'e' || GetPeek() == 'E') && baseNumber == 10)
             {
-                // записываем символы после e
+
                 afterE.Append((char)GetChar());
                 digitsAfterE = 0;
                 type = LexemeType.Double;
@@ -422,7 +404,7 @@ namespace Lexer
                 }
             }
 
-            // если после e нет чисел, то ошибка
+
             if (digitsAfterE == 0 && baseNumber == 10)
             {
                 throw new Exception("Unexpected character");
@@ -432,21 +414,20 @@ namespace Lexer
             {
                 var value = integerPart.ToString();
 
-                // если есть точка и есть числа после точки, то конкатинируем строки
+
                 if (afterDot.Length >= 2)
                 {
                     value = string.Concat(value, afterDot.ToString());
                 }
 
-                // если есть e и есть числа после e, то конкатинируем строки
+
                 if (afterE.Length >= 2 && '0' <= afterE[afterE.Length - 1] &&
                     afterE[afterE.Length - 1] <= '9')
                 {
                     value = string.Concat(value, afterE.ToString());
                 }
 
-                // по умолчанию, double.Parse сканирует число, где разделитель между целой и дробной частями , (запятая)
-                // CultureInfo.InvariantCulture позволяет парсеру сканировать число из строки, где разделитель . (точка)
+
                 try
                 {
                     return new Lexeme(_pos, type, double.Parse(value, CultureInfo.InvariantCulture), _buffer);

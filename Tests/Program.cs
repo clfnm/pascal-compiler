@@ -8,13 +8,13 @@ namespace Tests
 {
     internal class Program
     {
-        //Путь к файлу
+
         private static string GetFilePathInProject(string file)
         {
             return AppDomain.CurrentDomain.BaseDirectory + "../../" + file;
         }
 
-        //Создание файла .out
+
         private static string GetOutputFile(string file)
         {
             return file.Substring(0, file.Length - 3) + ".out";
@@ -23,29 +23,29 @@ namespace Tests
         public static void Main(string[] args)
         {
             var files = new List<string>() { };
-            // подготавливаем список всех символов
+
             foreach (var file in Directory.GetFiles(GetFilePathInProject(""), "*.*", SearchOption.AllDirectories)
                          .Where(s => "*.in".Contains(Path.GetExtension(s).ToLower())))
             {
                 files.Add(file);
             }
 
-            // подчитываем общее количество тестов и тестов, которые лексер выдал неправильный ответ
+
             int total = 0, failed = 0;
 
             foreach (var inputFile in files)
             {
-                // подсчитываем количество тестов
+
                 ++total;
                 Console.WriteLine(inputFile);
                 var outputFile = GetOutputFile(inputFile);
                 
-                // открываем файл
+
                 var inputReader = new StreamReader(inputFile);
                 var lexer = new Lexer.Lexer(inputReader);
                 Lexeme lexeme;
                 
-                // записываем в <file>.out, что выдает лексер, если файла не существует
+
                 if (!File.Exists(outputFile))
                 {
                     Console.WriteLine("WRITE BY LEXER");
@@ -54,31 +54,31 @@ namespace Tests
                     {
                         try
                         {
-                            // берем следующую лексему
+
                             lexeme = lexer.GetNext();
                             outputWriter.Write(lexeme.ToString());
                             Console.WriteLine(lexeme.ToString());
                         }
-                        catch (Exception ex) // ловим ислючение из lexer.GetNext()
+                        catch (Exception ex)
                         {
                             outputWriter.WriteLine(ex.Message);
                             Console.WriteLine(ex.Message);
                             break;
                         }
 
-                        // если встетили Eof, то не пишем
+
                         if (lexeme.Type != LexemeType.Eof)
                         {
                             outputWriter.WriteLine();
                         }
                     } while (lexeme.Type != LexemeType.Eof);
-                    outputWriter.Flush(); // записываем из буфера потока в файл
-                    outputWriter.Close(); // закрываем файл
-                    continue; // переходим к следующему файлу
+                    outputWriter.Flush();
+                    outputWriter.Close();
+                    continue;
                 }
                 
                 var outputReader = new StreamReader(outputFile);
-                var failedLocal = false; // упал ли теcт
+                var failedLocal = false;
                 while (true)
                 {
                     var line = outputReader.ReadLine();
@@ -90,13 +90,13 @@ namespace Tests
                     {
                         if (line != ex.Message)
                         {
-                            failedLocal = true; // записываем, что упал тест
+                            failedLocal = true;
                             Console.WriteLine("FAIL,\n{0}\n{1}", line, ex.Message);
                         }
                         break;
                     }
 
-                    // сопоставляем ответ лексера и то, что содержится в <file>.in
+
                     var lexemeStr = lexeme.ToString();
                     if (line == lexemeStr)
                     {
@@ -104,7 +104,7 @@ namespace Tests
                     }
                     else
                     {
-                        failedLocal = true; // записываем, что упал тест
+                        failedLocal = true;
                         Console.WriteLine("FAIL,\n{0}\n{1}", line, lexemeStr);
                     }
                     if (lexeme.Type == LexemeType.Eof)
@@ -115,12 +115,12 @@ namespace Tests
 
                 if (failedLocal)
                 {
-                    // увеличиваем счетчик упавших тестов
+
                     ++failed;
                 }
             }
             
-            // выводится статистика тестов
+
             Console.WriteLine("TOTAL: {0}, SUCCESS: {1}, FAILED: {2}", total, total - failed, failed);
         }
     }

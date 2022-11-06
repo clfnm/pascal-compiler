@@ -2,7 +2,7 @@
 
 namespace Lexer
 {
-    public enum KeywordsValue /*ключевые слова*/
+    public enum KeywordsValue
     {
         AND,
         ARRAY,
@@ -113,19 +113,18 @@ namespace Lexer
     
     public enum LexemeType
     {
-        Invalid, /*лексема, которую мы не смогли определить
-                    комментарии нужно пропускать, не нужно их выделять как отдельные лексемы*/
-        Eof, /*конец файла*/
-        Id, /*идентификаторы*/
-        Keyword, /*ключевые слова*/
-        Operation, /*знаки операций*/
-        Separator, /*разделитель*/
-        Integer, /*целое*/
-        Double, /*вещественный*/
-        String, /*строка*/
+        Invalid,
+        Eof,
+        Id,
+        Keyword,
+        Operation,
+        Separator,
+        Integer,
+        Double,
+        String,
     }
     
-    public enum OperatorValue /*знаки операций*/
+    public enum OperatorValue
     {
         Assigment, // :=
         Equal, // =
@@ -145,7 +144,7 @@ namespace Lexer
         BitwiseShiftToTheRight, // >>
     }
     
-    public enum SeparatorValue /*разделители*/
+    public enum SeparatorValue
     {
         LeftParenthesis, // (
         RightParenthesis, // )
@@ -176,9 +175,7 @@ namespace Lexer
 
         private object value;
 
-        /**
-         * object - тип, который может хранить любые другие типы данных: строка, число, enum и т.д.
-         */
+
         public object Value
         {
             get => value;
@@ -203,7 +200,7 @@ namespace Lexer
         {
             var result = $"{pos.CurrentLine}\t{pos.CurrentColumn}\t{type.ToString()}\t";
             
-            // Преобразование значения (value) в зависимости от типа лексемы (type)
+
             switch (type)
             {
                 case LexemeType.Eof:
